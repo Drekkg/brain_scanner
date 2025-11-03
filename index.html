@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8"/>
     <title>QuaggaJS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
     <style>
         #camera video{
+            margin: auto;
             width:100%;
             max-width: 640px;
         }
@@ -17,6 +18,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2/dist/quagga.min.js"></script>
 <script>
     const quaggaConf = {
+        locate: false,
         inputStream: {
             target: document.querySelector("#camera"),
             type: "LiveStream",
@@ -27,9 +29,11 @@
                 aspectRatio: { min: 1, max: 2 }
             }
         },
+        
         decoder: {
             readers: ['code_128_reader']
         },
+        
     }
 
     Quagga.init(quaggaConf, function (err) {
