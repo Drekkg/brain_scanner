@@ -17,6 +17,15 @@
 <div id="camera" style="width:100%"></div>
 <script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2/dist/quagga.min.js"></script>
 <script>
+    Quagga.CameraAccess.enumerateVideoDevices()
+    .then(function(devices) {
+        devices.forEach(function(device) {
+            console.log(`Device ID: ${device.deviceId}, Label: ${device.label}`);
+        });
+    })
+    .catch(function(err) {
+        console.error("Error enumerating video devices: ", err);
+    });
     const quaggaConf = {
         locate: false,
         inputStream: {
