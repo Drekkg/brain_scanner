@@ -27,7 +27,7 @@
         console.error("Error enumerating video devices: ", err);
     });
     const quaggaConf = {
-        locate: false,
+        locate: true,
         inputStream: {
             target: document.querySelector("#camera"),
             type: "LiveStream",
