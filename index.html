@@ -28,6 +28,10 @@
     });
     const quaggaConf = {
         locate: true,
+        locator: {
+                patchSize: "medium",
+                halfSample: true
+            },
         inputStream: {
             target: document.querySelector("#camera"),
             type: "LiveStream",
@@ -44,7 +48,29 @@
         },
         
     }
+    Quagga.onProcessed(function(result) {
+    const drawingCtx = Quagga.canvas.ctx.overlay;
+    const drawingCanvas = Quagga.canvas.dom.overlay;
 
+    if (result) {
+        if (result.boxes) {
+            drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+            result.boxes.forEach(function(box) {
+                Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
+                    color: "green", // Green box
+                    lineWidth: 2
+                });
+            });
+        }
+
+        if (result.box) {
+            Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, {
+                color: "#00F", // Blue box for the detected barcode
+                lineWidth: 2
+            });
+        }
+    }
+});
     Quagga.init(quaggaConf, function (err) {
         if (err) {
             return console.log(err);
